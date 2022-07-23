@@ -4,9 +4,11 @@ DOC="build-container.sh: Facilitates building a docker container image for a hea
 
 Usage: 
   build-container.sh
+  build-container.sh --help
   build-container.sh <version> [--tag=<tag>]
 
 Options:
+  -h, --help    Display this message
   --tag=<tag>   Sets the tag for the docker image
 "
 
@@ -26,16 +28,18 @@ function set_download_link_to_version() {
   DOWNLOAD_LINK="${ARCHIVE_PAGE}${VERSION}"
 }
 
-eval "$(docopt "$0")"
+function build_container() {
+  eval "$(docopt.sh --parser "$0")"
+  eval "$(docopt "$@")"
+  if $version; then
+    set_download_link_to_version $_version_
+  else
+    list_server_versions
+    LATEST_VERSION=${AVAILABLE_VERSIONS[0]}
+    set_download_link_to_version $LATEST_VERSION
+  fi
+  
+  echo $DOWNLOAD_LINK
+}
 
-if $version; then
-  set_download_link_to_version $version
-else
-  list_server_versions
-  LATEST_VERSION=${AVAILABLE_VERSIONS[0]}
-  set_download_link_to_version $LATEST_VERSION
-fi
-
-echo $DOWNLOAD_LINK
-
-
+build_container "$@"
