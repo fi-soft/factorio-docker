@@ -32,12 +32,12 @@ function set_download_link_to_version() {
 function build_container() {
   eval "$(docopt.sh --parser "$0")"
   eval "$(docopt "$@")"
-  if $version; then
-    set_download_link_to_version $_version_
-  else
+  if [ -z $_version_ ]; then
     list_server_versions
     LATEST_VERSION=${AVAILABLE_VERSIONS[0]}
     set_download_link_to_version $LATEST_VERSION
+  else
+    set_download_link_to_version $_version_
   fi
   
   echo $DOWNLOAD_LINK
