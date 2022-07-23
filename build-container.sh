@@ -14,6 +14,7 @@ Options:
 
 ARCHIVE_PAGE="https://factorio.com/download/archive/"
 DOWNLOAD_LINK=""
+DOWNLOAD_SUFFIX="/headless/linux64"
 AVAILABLE_VERSIONS=""
 DOCKER_TAG="latest"
 VERSION_TAG=""
@@ -25,7 +26,7 @@ function list_server_versions() {
 
 function set_download_link_to_version() {
   VERSION=$1
-  DOWNLOAD_LINK="${ARCHIVE_PAGE}${VERSION}"
+  DOWNLOAD_LINK="${ARCHIVE_PAGE}${VERSION}${DOWNLOAD_SUFFIX}"
 }
 
 function build_container() {
