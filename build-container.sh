@@ -26,12 +26,14 @@ function set_download_link_to_version() {
   DOWNLOAD_LINK="${ARCHIVE_PAGE}${VERSION}"
 }
 
-if [[ $# -ne 1 ]]; then
+eval "$(docopt "$0")"
+
+if $version; then
+  set_download_link_to_version $version
+else
   list_server_versions
   LATEST_VERSION=${AVAILABLE_VERSIONS[0]}
   set_download_link_to_version $LATEST_VERSION
-else
-  set_download_link_to_version $1
 fi
 
 echo $DOWNLOAD_LINK
