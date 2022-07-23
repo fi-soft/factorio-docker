@@ -13,6 +13,7 @@ Options:
 "
 
 ARCHIVE_PAGE="https://factorio.com/download/archive/"
+DOWNLOAD_PAGE="https://factorio.com/get-download/"
 DOWNLOAD_LINK=""
 DOWNLOAD_SUFFIX="/headless/linux64"
 AVAILABLE_VERSIONS=""
@@ -26,7 +27,8 @@ function list_server_versions() {
 
 function set_download_link_to_version() {
   VERSION=$1
-  DOWNLOAD_LINK="${ARCHIVE_PAGE}${VERSION}${DOWNLOAD_SUFFIX}"
+  DOWNLOAD_LINK="${DOWNLOAD_PAGE}${VERSION}${DOWNLOAD_SUFFIX}"
+  VERSION_TAG=$VERSION
 }
 
 function build_container() {
@@ -38,8 +40,10 @@ function build_container() {
     set_download_link_to_version $LATEST_VERSION
   else
     set_download_link_to_version $_version_
+    VERSION_TAG=$_version_
   fi
   
+  docker build -f factorio.dockerfile --target factorio --build-arg download_link=${DOWNLOAD_LINK} --tag ${VERSION_TAG} .
   echo $DOWNLOAD_LINK
 }
 
