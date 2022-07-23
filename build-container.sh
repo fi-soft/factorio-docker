@@ -1,8 +1,20 @@
 #!/bin/bash
 
+DOC="build-container.sh: Facilitates building a docker container image for a headless Factorio server.
+
+Usage: 
+  build-container.sh
+  build-container.sh <version> [--tag=<tag>]
+
+Options:
+  --tag=<tag>   Sets the tag for the docker image
+"
+
 ARCHIVE_PAGE="https://factorio.com/download/archive/"
 DOWNLOAD_LINK=""
 AVAILABLE_VERSIONS=""
+DOCKER_TAG="latest"
+VERSION_TAG=""
 
 function list_server_versions() {
   # Let's just parse some HTML with regex.  What could go wrong?
@@ -23,3 +35,5 @@ else
 fi
 
 echo $DOWNLOAD_LINK
+
+
