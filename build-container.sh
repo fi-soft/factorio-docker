@@ -43,7 +43,7 @@ function build_container() {
     VERSION_TAG=$_version_
   fi
   
-  docker build -f factorio.dockerfile --target factorio --build-arg download_link=${DOWNLOAD_LINK} --tag factorio:${VERSION_TAG} .
+  docker build -f factorio.dockerfile --target factorio --build-arg download_link=${DOWNLOAD_LINK} --tag factorio:${VERSION_TAG} --tag factorio:latest .
   echo $DOWNLOAD_LINK
 }
 
