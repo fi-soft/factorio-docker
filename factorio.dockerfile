@@ -8,3 +8,5 @@ run tar -czvf factorio_headless.tar.gz factorio
 
 from frolvlad/alpine-glibc:alpine-3.14 as factorio
 copy --from=download /opt/factorio_headless.tar.xz /opt/factorio_headless.tar.xz
+copy launch_server.sh /opt/
+cmd ash /opt/launch_server.sh
