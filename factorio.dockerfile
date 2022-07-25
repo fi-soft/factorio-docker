@@ -6,5 +6,5 @@ run curl -L -o factorio_headless.tar.xz $download_link
 run tar -xvf factorio_headless.tar.xz
 run tar -czvf factorio_headless.tar.gz factorio
 
-from debian:buster-slim as factorio
-copy --from=download /opt/factorio_headless.tar.gz /opt/factorio_headless.tar.gz
+from frolvlad/alpine-glibc:alpine-3.14 as factorio
+copy --from=download /opt/factorio_headless.tar.xz /opt/factorio_headless.tar.xz
